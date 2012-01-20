@@ -1,4 +1,6 @@
 require "rrd/canvas/version"
+require "rrd/canvas/picture"
+require "rrd/canvas/datasource"
 
 module RRD
     class Canvas
@@ -14,9 +16,8 @@ module RRD
             instance_eval &block
         end
 
-
         def picture(label, &block)
-            @new_pic = Portal::Picture.new
+            @new_pic = RRD::Canvas::Picture.new
             instance_eval &block
             @pictures[label] = @new_pic
         end
@@ -26,9 +27,8 @@ module RRD
             @new_pic.append label.to_s, ds.to_option
         end
 
-
         def ds(label, &block)
-            @new_ds = Portal::DataSource.new
+            @new_ds = RRD::Canvas::DataSource.new
             @new_ds.instance_eval &block
             @datasources[label] = @new_ds
         end
